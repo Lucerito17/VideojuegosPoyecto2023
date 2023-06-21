@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866e2815678aa324b820423aa10616c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 15
+  velocity: 8
   balitas: {fileID: 2072189251930698828}
 --- !u!50 &1096659666392281214
 Rigidbody2D:

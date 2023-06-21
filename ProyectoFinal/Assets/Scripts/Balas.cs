@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Balas : MonoBehaviour
 {
-    public float velocity = 15;
+    public float velocity = 6;
     Rigidbody2D rb;
     SpriteRenderer sr;
     float realVelocity;
