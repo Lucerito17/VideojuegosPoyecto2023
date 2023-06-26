@@ -13,4 +13,8 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void Regresar()
+    {
+        SceneManager.LoadScene(6);
+    }
 }

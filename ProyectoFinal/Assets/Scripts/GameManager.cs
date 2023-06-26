@@ -8,11 +8,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class GameManager : MonoBehaviour
 {
-    //public TMP_Text MonedasTxt ;
-    //public TMP_Text VidaTxt ;
-    //public TMP_Text BalasTxt;
-    //public TMP_Text ZombieTxt;
-    //public TMP_Text LlaveTxt;
     Player1Controller player1;
     Player2Controller player2;
     int cont;
@@ -20,7 +15,6 @@ public class GameManager : MonoBehaviour
     int vidita2;
     int balas;
     int cant;
-    int llave;
     int gemas;
     int mividita;
     public int vidas;
@@ -36,116 +30,13 @@ public class GameManager : MonoBehaviour
         cant = 0;
         vidas = 1;
         gemas = 0;
-        llave = 0;
         mividita = 10;
-        //LoadGame();
         TextVista();
     }
-
-    /*public void SaveGame()
+    void Update()
     {
-        if(player1.cambio)
-        {
-            var filePath = Application.persistentDataPath + "/guardar2.dat";
-            FileStream file;
-
-            if(File.Exists(filePath))
-                file = File.OpenWrite(filePath);
-            else
-                file = File.Create(filePath);
-
-            GameData data = new GameData();
-            data.Vida = vidita;
-            data.ZombiesCantidad = cant;
-            //data.Player = tempx;
-
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(file, data);
-            file.Close();
-        }
-        else
-        {
-            var filePath = Application.persistentDataPath + "/guardar.dat";
-            FileStream file;
-
-            if(File.Exists(filePath))
-                file = File.OpenWrite(filePath);
-            else
-                file = File.Create(filePath);
-
-            GameData data = new GameData();
-            data.Vida = vidita;
-            data.ZombiesCantidad = cant;
-
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(file, data);
-            file.Close();
-        }
-        
-    }*/
-
-    /*public void SaveGame2()
-    {
-        var filePath = Application.persistentDataPath + "/guardar2.dat";
-        FileStream file;
-
-        if(File.Exists(filePath))
-            file = File.OpenWrite(filePath);
-        else
-            file = File.Create(filePath);
-
-        GameData data = new GameData();
-        data.Vida = 3;
-        data.ZombiesCantidad = 0;
-        //data.Player = tempx;
-
-        BinaryFormatter bf = new BinaryFormatter();
-        bf.Serialize(file, data);
-        file.Close();
-    }*/
-
-    /*public void LoadGame()
-    {
-        if(!player1.cambio)
-        {
-        var filePath = Application.persistentDataPath + "/guardar2.dat";
-        FileStream file;
-
-        if(File.Exists(filePath))
-            file = File.OpenRead(filePath);
-        else{
-            Debug.LogError("No se encontro archivo");
-            return;
-        }
-
-        BinaryFormatter bf = new BinaryFormatter();
-        GameData data = (GameData) bf.Deserialize(file);
-        file.Close();
-
-        //usar datos guardados
-        cant = data.ZombiesCantidad;
-        vidita = data.Vida;
-        }
-        else
-        {
-            var filePath = Application.persistentDataPath + "/guardar.dat";
-        FileStream file;
-
-        if(File.Exists(filePath))
-            file = File.OpenRead(filePath);
-        else{
-            Debug.LogError("No se encontro archivo");
-            return;
-        }
-
-        BinaryFormatter bf = new BinaryFormatter();
-        GameData data = (GameData) bf.Deserialize(file);
-        file.Close();
-
-        //usar datos guardados
-        cant = data.ZombiesCantidad;
-        }
-    }*/
+        //Debug.Log(Time.deltaTime);
+    }
 
     public int Cont()
     {
@@ -171,10 +62,6 @@ public class GameManager : MonoBehaviour
     {
         return vidas;
     }
-    public int Llave()
-    {
-        return llave;
-    }
     public int Gemas()
     {
         return gemas;
@@ -186,7 +73,6 @@ public class GameManager : MonoBehaviour
     public void SumaMonedas()
     {
         cont++;
-        TextVista();
     }
     public void RestarVidaMedusa(int menos)
     {
@@ -203,26 +89,18 @@ public class GameManager : MonoBehaviour
     public void MenosBalas(int resta)
     {
         balas-=resta;
-        TextVista();
     }
     public void MasBalas(int suma)
     {
         balas += suma;
-        TextVista();
     }
     public void CantZombie()
     {
         cant++;
-        TextVista();
     }
     public void RestaVidaZombie(int menos)
     {
         vidas-=menos;
-    }
-    public void SumaLlave()
-    {
-        llave++;
-        TextVista();
     }
     public void SumarGemas()
     {
@@ -230,10 +108,5 @@ public class GameManager : MonoBehaviour
     }
     public void TextVista()
     {
-        //MonedasTxt.text = "Monedas : " + cont;
-        //VidaTxt.text ="Vida : " + vidita;
-        //BalasTxt.text ="Balas : " + balas;
-        //ZombieTxt.text="Puntos : " + cant;
-        //LlaveTxt.text="Llave: "+ llave;
     }
 }

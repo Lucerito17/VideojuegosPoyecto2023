@@ -68,7 +68,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        if(other.gameObject.name == "fire1" || other.gameObject.name == "fire2"){
+        if(other.gameObject.name == "fire1" || other.gameObject.name == "fire2"||other.gameObject.name=="golpe"){
             gameManager.RestaVidaZombie(1);
             if(gameManager.Vidas()==0){
                 Destroy(this.gameObject);

@@ -13,6 +13,7 @@ public class MedusaController : MonoBehaviour
     bool estado = true;
     float velocity = 5;
     public GameObject portal;
+    public GameObject ataque;
     GameManager gameManager;
     const int ANIMATION_CORRER = 0;
     const int ANIMATION_ATTACK = 1;
@@ -37,11 +38,23 @@ public class MedusaController : MonoBehaviour
         {
             rb.velocity = new Vector2(-velocity, rb.velocity.y);
             Vuelta();
+            //AtacarPersonaje();
         }
     }
     private void AtacarPersonaje()
     {
         ChangeAnimation(ANIMATION_ATTACK);
+            var AtaquePosition=transform.position;
+            if (sr.flipX == true)
+            {
+                AtaquePosition = transform.position + new Vector3(-1.5f, 0, 0);
+            }
+            else if (sr.flipX == false)
+            {
+                AtaquePosition = transform.position + new Vector3(1.5f, 0, 0);
+            }
+            var gb = Instantiate(ataque, AtaquePosition, Quaternion.identity) as GameObject;
+            Destroy(gb, 0.5f);
     }
     private void Vuelta()
     {
@@ -78,21 +91,25 @@ public class MedusaController : MonoBehaviour
         {
             choco = true;
         }
+        if(other.gameObject.tag == "player1" && this.gameObject.tag=="med"){
+            Debug.Log("llegando");
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
         if(other.gameObject.tag == "fire1" || other.gameObject.tag == "fire2"||other.gameObject.tag=="golpe"){
             gameManager.RestarVidaMedusa(1);
-            /*if(gameManager.Medusa()>0)
+            if(gameManager.Medusa()>0)
             {
                 ChangeAnimation(ANIMATION_HURT);
-            }*/
+            }
             if(gameManager.Medusa()<=0){
                 ChangeAnimation(ANIMATION_MORIR);
                 cl.enabled = false;
             }
             Destroy(other.gameObject);
         }
+        
     } 
 }

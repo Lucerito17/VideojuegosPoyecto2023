@@ -21,6 +21,11 @@ TagManager:
   - fire2
   - fire1
   - golpe
+  - Portal44
+  - Portal5
+  - med
+  - player1
+  - player2
   layers:
   - Default
   - TransparentFX

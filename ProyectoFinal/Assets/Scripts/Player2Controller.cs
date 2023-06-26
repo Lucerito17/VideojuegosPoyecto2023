@@ -97,7 +97,6 @@ public class Player2Controller : MonoBehaviour
             var gb = Instantiate(ataque, AtaquePosition, Quaternion.identity) as GameObject;
             Destroy(gb, 0.5f);
         }
-            
     }
     private void Disparar()
     {
@@ -196,6 +195,13 @@ public class Player2Controller : MonoBehaviour
             if(player1.paso==true)
             {
                 SceneManager.LoadScene(5);
+            }
+        }
+        if(other.gameObject.tag=="Portal5")
+        {
+            if(player1.paso==true)
+            {
+                SceneManager.LoadScene(7);
             }
         }
         if(other.gameObject.tag=="Gmorada")

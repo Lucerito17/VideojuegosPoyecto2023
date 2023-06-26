@@ -10,6 +10,7 @@ public class Player1Controller : MonoBehaviour
     SpriteRenderer sr;
     Collider2D cl;
     public GameObject balita;
+    public GameObject ataque;
     const int ANIMATION_QUIETO = 0;
     const int ANIMATION_ATTACK = 1;
     const int ANIMATION_SHOOT = 2;
@@ -79,8 +80,21 @@ public class Player1Controller : MonoBehaviour
     }
     private void Ataque()
     {
-        if (Input.GetKey(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
             ChangeAnimation(ANIMATION_ATTACK);
+            var AtaquePosition=transform.position;
+            if (sr.flipX == true)
+            {
+                AtaquePosition = transform.position + new Vector3(-1.5f, 0, 0);
+            }
+            else if (sr.flipX == false)
+            {
+                AtaquePosition = transform.position + new Vector3(1.5f, 0, 0);
+            }
+            var gb = Instantiate(ataque, AtaquePosition, Quaternion.identity) as GameObject;
+            Destroy(gb, 0.5f);
+        }
     }
     private void Disparar()
     {
@@ -165,6 +179,10 @@ public class Player1Controller : MonoBehaviour
             paso = true;
         }
         if(other.gameObject.tag=="Portal33"&&gameManager.Gemas()==18)
+        {
+            paso = true;
+        }
+        if(other.gameObject.tag=="Portal44")
         {
             paso = true;
         }
