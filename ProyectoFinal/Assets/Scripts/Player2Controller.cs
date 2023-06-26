@@ -11,6 +11,7 @@ public class Player2Controller : MonoBehaviour
     SpriteRenderer sr;
     Collider2D cl;
     public GameObject balita;
+    public GameObject ataque;
     const int ANIMATION_QUIETO = 0;
     const int ANIMATION_ATTACK = 1;
     const int ANIMATION_SHOOT = 2;
@@ -81,8 +82,22 @@ public class Player2Controller : MonoBehaviour
     }
     private void Ataque()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
+        {
             ChangeAnimation(ANIMATION_ATTACK);
+            var AtaquePosition=transform.position;
+            if (sr.flipX == true)
+            {
+                AtaquePosition = transform.position + new Vector3(-1.5f, 0, 0);
+            }
+            else if (sr.flipX == false)
+            {
+                AtaquePosition = transform.position + new Vector3(1.5f, 0, 0);
+            }
+            var gb = Instantiate(ataque, AtaquePosition, Quaternion.identity) as GameObject;
+            Destroy(gb, 0.5f);
+        }
+            
     }
     private void Disparar()
     {
@@ -92,7 +107,6 @@ public class Player2Controller : MonoBehaviour
             {
                 Bala(3, 0, 0);
                 gameManager.MenosBalas(1);
-                //audioSource.PlayOneShot(bulletSound);
             }
         }
     }

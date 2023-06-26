@@ -11,6 +11,7 @@ public class MedusaController : MonoBehaviour
     Collider2D cl;
     bool choco = true;
     bool estado = true;
+    bool personajedetectado = false;
     float velocity = 5;
     public GameObject portal;
     GameManager gameManager;
@@ -29,7 +30,7 @@ public class MedusaController : MonoBehaviour
 
     void Update()
     {
-        if(gameManager.Medusa() <= 0||gameManager.Vidita() <= 0|| gameManager.Vidita2() <= 0)
+        if(gameManager.Medusa() <= 0)
         {
             Morir();
         }
@@ -38,6 +39,10 @@ public class MedusaController : MonoBehaviour
             rb.velocity = new Vector2(-velocity, rb.velocity.y);
             Vuelta();
         }
+    }
+    private void AtacarPersonaje()
+    {
+        ChangeAnimation(ANIMATION_ATTACK);
     }
     private void Vuelta()
     {
@@ -78,13 +83,13 @@ public class MedusaController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        if(other.gameObject.tag == "fire1" || other.gameObject.tag == "fire2"){
+        if(other.gameObject.tag == "fire1" || other.gameObject.tag == "fire2"||other.gameObject.tag=="golpe"){
             gameManager.RestarVidaMedusa(1);
             if(gameManager.Medusa()<=0){
                 ChangeAnimation(ANIMATION_MORIR);
                 cl.enabled = false;
             }
             Destroy(other.gameObject);
-        } 
+        }
     } 
 }

@@ -20,6 +20,7 @@ TagManager:
   - Portal4
   - fire2
   - fire1
+  - golpe
   layers:
   - Default
   - TransparentFX
