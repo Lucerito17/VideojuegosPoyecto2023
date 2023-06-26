@@ -164,11 +164,20 @@ public class Player1Controller : MonoBehaviour
         {
             paso = true;
         }
-    }
-    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag=="Portal33"&&gameManager.Gemas()==18)
+        {
+            paso = true;
+        }
+        if(other.gameObject.tag=="Groja")
+        {
+            gameManager.SumarGemas();
+        }
         if(other.gameObject.tag=="Enemy")
         {
             Morir();
         }
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        
     }
 }

@@ -177,11 +177,23 @@ public class Player2Controller : MonoBehaviour
                 SceneManager.LoadScene(4);
             }
         }
-    }
-    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag=="Portal4"&&gameManager.Gemas()==18)
+        {
+            if(player1.paso==true)
+            {
+                SceneManager.LoadScene(5);
+            }
+        }
+        if(other.gameObject.tag=="Gmorada")
+        {
+            gameManager.SumarGemas();
+        }
         if(other.gameObject.tag=="Enemy")
         {
             Morir();
         }
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        
     }
 }

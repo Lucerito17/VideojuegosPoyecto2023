@@ -16,6 +16,8 @@ TagManager:
   - Portal11
   - Portal22
   - Portal3
+  - Portal33
+  - Portal4
   layers:
   - Default
   - TransparentFX

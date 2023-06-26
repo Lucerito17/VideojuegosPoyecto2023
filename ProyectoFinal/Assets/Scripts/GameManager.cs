@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     int balas;
     int cant;
     int llave;
+    int gemas;
     public int vidas;
     
     void Start()
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
         balas = 50;
         cant = 0;
         vidas = 1;
+        gemas = 0;
         llave = 0;
         //LoadGame();
         TextVista();
@@ -171,6 +173,10 @@ public class GameManager : MonoBehaviour
     {
         return llave;
     }
+    public int Gemas()
+    {
+        return gemas;
+    }
 
     public void SumaMonedas()
     {
@@ -209,6 +215,10 @@ public class GameManager : MonoBehaviour
     {
         llave++;
         TextVista();
+    }
+    public void SumarGemas()
+    {
+        gemas++;
     }
     public void TextVista()
     {
