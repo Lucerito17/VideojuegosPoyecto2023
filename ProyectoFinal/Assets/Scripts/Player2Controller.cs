@@ -18,9 +18,11 @@ public class Player2Controller : MonoBehaviour
     const int ANIMATION_JUMP = 4;
     const int ANIMATION_MORIR = 5;
     bool estado = true;
-    int velocity = 10;
-    float VelocityJump = 11;
+    bool gema = false;
+    int velocity = 6;
+    float VelocityJump = 9;
     GameManager gameManager;
+    Player1Controller player1;
     void Start()
     {
         Debug.Log("Iniciando juego");
@@ -28,12 +30,13 @@ public class Player2Controller : MonoBehaviour
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         cl = GetComponent<Collider2D>();
+        player1 = FindObjectOfType<Player1Controller>();
         gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
     {
-        if (gameManager.Vidita() > 0)
+        if (gameManager.Vidita2() > 0)
         {
             Correr();
             GirarAnimacion();
@@ -115,6 +118,7 @@ public class Player2Controller : MonoBehaviour
     private void Morir()
     {
         estado = false;
+        gameManager.RestaVida2();
         ChangeAnimation(ANIMATION_MORIR);
     }
 
@@ -147,5 +151,37 @@ public class Player2Controller : MonoBehaviour
             sr.flipX = false;
         }
     }
-
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag=="Portal1")
+        {
+            if(player1.paso==true)
+            {
+                SceneManager.LoadScene(1);
+            }
+        }
+        if(other.gameObject.tag=="Gmorada")
+        {
+            gema=true;
+            Destroy(other.gameObject);
+        }
+        if(other.gameObject.tag=="Portal2"&&gema&&gameManager.Cantidad()==8){
+            if(player1.paso==true)
+                {
+                    SceneManager.LoadScene(3);
+                }
+            }
+        if(other.gameObject.tag=="Portal3"&&gameManager.Cantidad()==6)
+        {
+            if(player1.paso==true)
+            {
+                SceneManager.LoadScene(4);
+            }
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag=="Enemy")
+        {
+            Morir();
+        }
+    }
 }

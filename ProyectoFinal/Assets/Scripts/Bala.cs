@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bala : MonoBehaviour
 {
-    public float velocity = 6;
+    public float velocity = 4;
     Rigidbody2D rb;
     SpriteRenderer sr;
     float realVelocity;
@@ -41,24 +41,16 @@ public class Bala : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D other)//para chocar y eliminar
+    public void OnTriggerEnter2D(Collider2D other)//para chocar y eliminar
     {
-
         if (other.gameObject.tag == "Enemy")
         {
             //Destroy(this.gameObject);//se topa con el objeto 
             //Destroy(other.gameObject);//destruye al objeto topado
-
+            gameManager.CantZombie();
             gameManager.RestaVidaZombie(1);
-            Debug.Log(gameManager.vidas);
             Destroy(this.gameObject);
-            if (gameManager.vidas <= 0)
-            {
-                Destroy(other.gameObject);
-                gameManager.CantZombie(1);
-                gameManager.vidas = 2;
-            }
-
+            Destroy(other.gameObject);
         }
     }
 }

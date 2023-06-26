@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    float velocity = 3;
+    float velocity = 2;
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer sr;
@@ -21,17 +21,17 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
         gameManager = FindObjectOfType<GameManager>();
     }
-
-
     void Update()
     {
-        if(gameManager.Vidita() > 0)
+        if(gameManager.Vidita() <= 0|| gameManager.Vidita2() <= 0)
+        {
+            Morir();
+        }
+        else
         {
             rb.velocity = new Vector2(-velocity, rb.velocity.y);
             Vuelta();
         }
-        else
-        Morir();
     }
 
     private void Vuelta()
@@ -70,10 +70,11 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) 
     {
         if(other.gameObject.name == "fire1" || other.gameObject.name == "fire2"){
+            gameManager.RestaVidaZombie(1);
             if(gameManager.Vidas()==0){
                 Destroy(this.gameObject);
                 Destroy(other.gameObject);
             }
-        }
+        } 
     } 
 }

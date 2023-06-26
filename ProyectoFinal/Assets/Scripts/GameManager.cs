@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     //public TMP_Text ZombieTxt;
     //public TMP_Text LlaveTxt;
     Player1Controller player1;
+    Player2Controller player2;
     int cont;
     int vidita;
     int vidita2;
@@ -21,9 +22,11 @@ public class GameManager : MonoBehaviour
     int cant;
     int llave;
     public int vidas;
+    
     void Start()
     {
         player1 = FindObjectOfType<Player1Controller>();
+        player2 = FindObjectOfType<Player2Controller>();
         cont = 0;
         vidita = 1;
         vidita2 = 1;
@@ -178,12 +181,10 @@ public class GameManager : MonoBehaviour
     public void RestaVida()
     {
         vidita--;
-        TextVista();
     }
     public void RestaVida2()
     {
         vidita2--;
-        TextVista();
     }
     public void MenosBalas(int resta)
     {
@@ -195,7 +196,7 @@ public class GameManager : MonoBehaviour
         balas += suma;
         TextVista();
     }
-    public void CantZombie(int canti)
+    public void CantZombie()
     {
         cant++;
         TextVista();

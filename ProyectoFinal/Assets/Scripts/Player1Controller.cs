@@ -17,8 +17,10 @@ public class Player1Controller : MonoBehaviour
     const int ANIMATION_JUMP = 4;
     const int ANIMATION_MORIR = 5;
     bool estado = true;
-    int velocity = 10;
-    float VelocityJump = 11;
+    bool gema = false;
+    public bool paso = false;
+    int velocity = 6;
+    float VelocityJump = 9;
     GameManager gameManager;
     void Start()
     {
@@ -114,9 +116,9 @@ public class Player1Controller : MonoBehaviour
     private void Morir()
     {
         estado = false;
+        gameManager.RestaVida();
         ChangeAnimation(ANIMATION_MORIR);
     }
-
     private void CheckGround()
     {
         if (cl.IsTouchingLayers(LayerMask.GetMask("Plataforma")))
@@ -129,12 +131,10 @@ public class Player1Controller : MonoBehaviour
             //aire = true;
         }
     }
-
     private void ChangeAnimation(int animation)
     {
         animator.SetInteger("Estado", animation);
     }
-
     private void GirarAnimacion()
     {
         if (rb.velocity.x < 0)
@@ -146,5 +146,29 @@ public class Player1Controller : MonoBehaviour
             sr.flipX = false;
         }
     }
-
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag=="Portal")
+        {
+            paso = true;
+        }
+        if(other.gameObject.tag=="Groja")
+        {
+            gema=true;
+            Destroy(other.gameObject);
+        }
+        if(other.gameObject.tag=="Portal11"&& gema&&gameManager.Cantidad()==8)
+        {
+            paso = true;
+        }
+        if(other.gameObject.tag=="Portal22"&&gameManager.Cantidad()==6)
+        {
+            paso = true;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag=="Enemy")
+        {
+            Morir();
+        }
+    }
 }

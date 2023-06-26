@@ -7,6 +7,15 @@ TagManager:
   - Plataforma
   - Choque
   - Enemy
+  - Portal
+  - MaestraMaga
+  - Portal1
+  - Portal2
+  - Groja
+  - Gmorada
+  - Portal11
+  - Portal22
+  - Portal3
   layers:
   - Default
   - TransparentFX
