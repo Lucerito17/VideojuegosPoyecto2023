@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         vidas = 1;
         gemas = 0;
         llave = 0;
-        mividita = 1;
+        mividita = 10;
         //LoadGame();
         TextVista();
     }

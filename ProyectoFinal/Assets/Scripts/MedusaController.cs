@@ -11,7 +11,6 @@ public class MedusaController : MonoBehaviour
     Collider2D cl;
     bool choco = true;
     bool estado = true;
-    bool personajedetectado = false;
     float velocity = 5;
     public GameObject portal;
     GameManager gameManager;
@@ -85,6 +84,10 @@ public class MedusaController : MonoBehaviour
     {
         if(other.gameObject.tag == "fire1" || other.gameObject.tag == "fire2"||other.gameObject.tag=="golpe"){
             gameManager.RestarVidaMedusa(1);
+            /*if(gameManager.Medusa()>0)
+            {
+                ChangeAnimation(ANIMATION_HURT);
+            }*/
             if(gameManager.Medusa()<=0){
                 ChangeAnimation(ANIMATION_MORIR);
                 cl.enabled = false;

@@ -440,7 +440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307409529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0085, y: -6.18, z: 0}
+  m_LocalPosition: {x: -0.11, y: -6.38, z: 0}
   m_LocalScale: {x: 29.326244, y: 1.0356, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4452,8 +4452,8 @@ GameObject:
   - component: {fileID: 1744732638}
   - component: {fileID: 1744732637}
   - component: {fileID: 1744732640}
-  - component: {fileID: 1744732642}
   - component: {fileID: 1744732641}
+  - component: {fileID: 1744732642}
   m_Layer: 0
   m_Name: Medusa
   m_TagString: Untagged
@@ -4542,7 +4542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744732636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.32, y: -4.36, z: 0}
+  m_LocalPosition: {x: 0.25, y: -4.24, z: 0}
   m_LocalScale: {x: -5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4793,7 +4793,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778654735}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.19, y: -3.72, z: 0}
+  m_LocalPosition: {x: 0.3, y: -3.38, z: 0}
   m_LocalScale: {x: 5, y: 4.6, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
