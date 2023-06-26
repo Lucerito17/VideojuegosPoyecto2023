@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     int cant;
     int llave;
     int gemas;
+    int mividita;
     public int vidas;
     
     void Start()
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         vidas = 1;
         gemas = 0;
         llave = 0;
+        mividita = 1;
         //LoadGame();
         TextVista();
     }
@@ -177,13 +179,19 @@ public class GameManager : MonoBehaviour
     {
         return gemas;
     }
-
+    public int Medusa()
+    {
+        return mividita;
+    }
     public void SumaMonedas()
     {
         cont++;
         TextVista();
     }
-
+    public void RestarVidaMedusa(int menos)
+    {
+        mividita-=menos;
+    }
     public void RestaVida()
     {
         vidita--;
