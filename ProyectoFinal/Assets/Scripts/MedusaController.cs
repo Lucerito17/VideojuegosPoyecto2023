@@ -91,7 +91,7 @@ public class MedusaController : MonoBehaviour
         {
             choco = true;
         }
-        if(other.gameObject.tag == "player1" && this.gameObject.tag=="med"){
+        if(other.gameObject.tag == "player1"){
             Debug.Log("llegando");
         }
     }
@@ -109,6 +109,8 @@ public class MedusaController : MonoBehaviour
                 cl.enabled = false;
             }
             Destroy(other.gameObject);
+        }else{
+            ChangeAnimation(ANIMATION_CORRER);
         }
         
     } 
