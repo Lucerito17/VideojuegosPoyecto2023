@@ -26,6 +26,7 @@ public class Player1Controller : MonoBehaviour
     public bool Petrificado;
     public GameObject petrificado;
     public float tiempoPetrificado;
+    public bool salvado;
     void Start()
     {
         Debug.Log("Iniciando juego");
@@ -47,8 +48,8 @@ public class Player1Controller : MonoBehaviour
                 Ataque();
                 Saltar();
                 Disparar();
-                CheckGround();
             }
+              CheckGround();
         }
         else
         {
@@ -60,12 +61,12 @@ public class Player1Controller : MonoBehaviour
     {
         if (Petrificado)
             return;
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetAxis("Player1") > 0)
         {
             rb.velocity = new Vector2(velocity, rb.velocity.y);
             ChangeAnimation(ANIMATION_CORRER);
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow)|| Input.GetAxis("Player1") < 0)
         {
             rb.velocity = new Vector2(-velocity, rb.velocity.y);
             ChangeAnimation(ANIMATION_CORRER);
@@ -80,7 +81,7 @@ public class Player1Controller : MonoBehaviour
     {
         animator.SetFloat("VelocityJump", rb.velocity.y);
         if (!cl.IsTouchingLayers(LayerMask.GetMask("Plataforma"))) { return; }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetButtonDown("Player1Saltar"))
         {
             rb.velocity = new Vector2(rb.velocity.x, VelocityJump);
             //audioSource.PlayOneShot(jumpSound);
@@ -88,7 +89,7 @@ public class Player1Controller : MonoBehaviour
     }
     private void Ataque()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Keypad1)|| Input.GetButtonDown("Player1Atacar1"))
         {
             ChangeAnimation(ANIMATION_ATTACK);
             var AtaquePosition=transform.position;
@@ -108,7 +109,7 @@ public class Player1Controller : MonoBehaviour
     {
         if (gameManager.Balas() > 0)
         {
-            if (Input.GetKeyUp(KeyCode.Keypad2))
+            if (Input.GetKeyUp(KeyCode.Keypad2) || Input.GetButtonDown("Player1Atacar2"))
             {
                 Bala(3, 0, 0);
                 gameManager.MenosBalas(1);
@@ -208,6 +209,8 @@ public class Player1Controller : MonoBehaviour
         if (other.collider.gameObject.tag == "player1")
         {
             petrificado.SetActive(false);
+            gameManager.IgnorarJugadores();
+            salvado = true;
             Petrificado = false;
             rb.mass = 1;
         }
@@ -215,20 +218,24 @@ public class Player1Controller : MonoBehaviour
     public IEnumerator Petrificar()//para la medusa que quedes quieto 
     {
         Petrificado = true;
+        salvado = false;
         petrificado.SetActive(true);
         rb.mass = 150;//este es peso 
+        gameManager.NoignorarJugadores();
         Debug.Log("Petrificado");
         yield return new WaitForSeconds(tiempoPetrificado);
         Debug.Log("despetrificado");
         petrificado.SetActive(false);
         rb.mass = 1;
+        if(!salvado)
+          gameManager.RestaVida();
         Petrificado = false;
         
     }
-    public void Despetrificar()
+    /*public void Despetrificar()
     {
         petrificado.SetActive(false);
         rb.mass = 1;
         gameManager.RestaVida();
-    }
+    }*/
 }

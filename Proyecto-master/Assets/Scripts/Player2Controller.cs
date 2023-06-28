@@ -27,6 +27,7 @@ public class Player2Controller : MonoBehaviour
     public bool Petrificado;
     public GameObject petrificado;
     public float tiempoPetrificado;
+    public bool salvado;
     void Start()
     {
         Debug.Log("Iniciando juego");
@@ -46,10 +47,11 @@ public class Player2Controller : MonoBehaviour
                 Correr();
                 GirarAnimacion();
                 Ataque();
-                Saltar();
                 Disparar();
-                CheckGround();
+                
+                Saltar();
             }
+            CheckGround();
         }
         else
         {
@@ -61,12 +63,12 @@ public class Player2Controller : MonoBehaviour
     {
 
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D)| Input.GetAxis("Player2") > 0)
             {
                 rb.velocity = new Vector2(velocity, rb.velocity.y);
                 ChangeAnimation(ANIMATION_CORRER);
             }
-            else if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A)| Input.GetAxis("Player2") < 0)
             {
                 rb.velocity = new Vector2(-velocity, rb.velocity.y);
                 ChangeAnimation(ANIMATION_CORRER);
@@ -82,7 +84,7 @@ public class Player2Controller : MonoBehaviour
     {
         animator.SetFloat("VelocityJump", rb.velocity.y);
         if (!cl.IsTouchingLayers(LayerMask.GetMask("Plataforma"))) { return; }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetButtonDown("Player2Saltar"))
         {
             rb.velocity = new Vector2(rb.velocity.x, VelocityJump);
             //audioSource.PlayOneShot(jumpSound);
@@ -90,7 +92,7 @@ public class Player2Controller : MonoBehaviour
     }
     private void Ataque()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Player2Atacar1"))
         {
             ChangeAnimation(ANIMATION_ATTACK);
             var AtaquePosition=transform.position;
@@ -110,7 +112,7 @@ public class Player2Controller : MonoBehaviour
     {
         if (gameManager.Balas() > 0)
         {
-            if (Input.GetKeyUp(KeyCode.R))
+            if (Input.GetKeyUp(KeyCode.R)|| Input.GetButtonDown("Player2Atacar2"))
             {
                 Bala(3, 0, 0);
                 gameManager.MenosBalas(1);
@@ -225,6 +227,8 @@ public class Player2Controller : MonoBehaviour
         if(other.collider.gameObject.tag == "player1")
         {
             petrificado.SetActive(false);
+            gameManager.IgnorarJugadores();
+            salvado = true;
             Petrificado = false;
             rb.mass = 1;
         }
@@ -232,14 +236,20 @@ public class Player2Controller : MonoBehaviour
     public IEnumerator Petrificar()
     {
         Petrificado = true;
+        salvado = false;
         petrificado.SetActive(true);
         rb.mass = 150;
         Debug.Log("Petrificado");
+        gameManager.NoignorarJugadores();
+        ChangeAnimation(ANIMATION_QUIETO);
         yield return new WaitForSeconds(tiempoPetrificado);
         Debug.Log("despetrificado");
         petrificado.SetActive(false);
         rb.mass = 1;
+        if(!salvado)
+           gameManager.RestaVida2();
         Petrificado = false;
+        
     }
     public void Despetrificar()
     {

@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     int gemas;
     int mividita;
     public int vidas;
-
     private string tiempoTranscurridoPath = "Assets/TiempoTranscurrido.txt"; // Ruta del archivo de texto
 
     void Start()
@@ -59,7 +58,7 @@ public class GameManager : MonoBehaviour
         vidas = 1;
         gemas = 0;
         mividita = 10;
-
+        IgnorarJugadores();
         CargarTiempoTranscurrido(); // Cargar el tiempo al iniciar la escena
         StartCoroutine(MostrarTextoRoutine(textos));
     }
@@ -89,7 +88,14 @@ public class GameManager : MonoBehaviour
         // Cierra el archivo
         writer.Close();
     }
+    
+    public void IgnorarJugadores(){
+      Physics2D.IgnoreCollision(player2.GetComponent<BoxCollider2D>() ,player1.GetComponent<BoxCollider2D>(), true);
+    }
 
+     public void NoignorarJugadores(){
+      Physics2D.IgnoreCollision(player2.GetComponent<BoxCollider2D>() ,player1.GetComponent<BoxCollider2D>(), false);
+    }
     public void CargarTiempoTranscurrido()
     {
         // Verifica si el archivo existe
@@ -204,11 +210,12 @@ public class GameManager : MonoBehaviour
     {
         foreach (string texto in txt)
         {
+            if(txtTutorial != null){
             txtTutorial.text = texto;
             txtTutorial.CrossFadeAlpha(1f, tiempoDesvanecimiento, false);
-
+            }
             yield return new WaitForSeconds(tiempoEnPantalla);
-
+            if(txtTutorial != null)
             txtTutorial.CrossFadeAlpha(0f, tiempoDesvanecimiento / 2f, false);
 
             yield return new WaitForSeconds(tiempoDesvanecimiento / 2f);
@@ -249,7 +256,8 @@ public class GameManager : MonoBehaviour
                 string ultimaLinea = tiemposTranscurridosString[tiemposTranscurridosString.Length - 1];
 
                 // Actualizar el campo de texto txtFinal
-                txtFinal.text = "Tiempo Final: " + ultimaLinea;
+                if(txtFinal != null)
+                 txtFinal.text = "Tiempo Final: " + ultimaLinea;
             }
             else
             {

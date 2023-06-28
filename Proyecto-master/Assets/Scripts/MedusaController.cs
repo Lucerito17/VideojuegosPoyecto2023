@@ -11,6 +11,7 @@ public class MedusaController : MonoBehaviour
     [SerializeField] float anguloJugador2;
     [SerializeField] Player1Controller player1;
     [SerializeField] Player2Controller player2;
+    [SerializeField] GameObject Emoji;
 
     public float velocidadBala;
 
@@ -20,7 +21,8 @@ public class MedusaController : MonoBehaviour
     public float distanciaMaxima; 
     public float distanciaMaximaAtacar;
     public float comienzeaatacarTiempo;
-
+    public float tiempoentreataque;
+    [SerializeField]bool isAttack = true;
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer sr;
@@ -69,21 +71,23 @@ public class MedusaController : MonoBehaviour
             anguloJugador1 = angulo(player1.transform);
             anguloJugador2 = angulo(player2.transform);
 
-            if (!petrificando || atacando)
+            if (!petrificando)
             {
                 rb.velocity = new Vector2(-velocity, rb.velocity.y);
                 Vuelta();
             }
 
-            if (distanciaJugador1 < distanciaJugador2 && distanciaJugador1 < distanciaMaxima && !player1.Petrificado && gameManager.Vidita() > 0 && anguloJugador1 > 130 && anguloJugador1 < 180 && !petrificando)
+            if (distanciaJugador1 < distanciaJugador2 && distanciaJugador1 < distanciaMaxima && !player1.Petrificado && gameManager.Vidita() > 0 && anguloJugador1 > 130 && anguloJugador1 < 180 && !petrificando && isAttack)
             {
                 StartCoroutine(Petrificar(player1.transform));
+                StartCoroutine(CoultDown());
             }
-            else if (distanciaJugador2 < distanciaMaxima && !player2.Petrificado && gameManager.Vidita2() > 0 && anguloJugador2 > 130 && anguloJugador2 < 180 && !petrificando)
+            else if (distanciaJugador2 < distanciaMaxima && !player2.Petrificado && gameManager.Vidita2() > 0 && anguloJugador2 > 130 && anguloJugador2 < 180 && !petrificando && isAttack)
             {
                 StartCoroutine(Petrificar(player2.transform));
+                StartCoroutine(CoultDown());
             }
-              if (player1.Petrificado)
+            if (player1.Petrificado)
             {
                 Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), player1.GetComponent<BoxCollider2D>(), true);
             }
@@ -99,9 +103,14 @@ public class MedusaController : MonoBehaviour
             {
                 Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), player2.GetComponent<BoxCollider2D>(), false);
             }
+          
         }
     }
-
+    IEnumerator CoultDown(){
+        isAttack =false;
+        yield return new WaitForSeconds(tiempoentreataque);
+        isAttack = true;
+    }
     IEnumerator comienzaaatacar()
     {
         comienzeaatacar = false;
@@ -113,6 +122,7 @@ public class MedusaController : MonoBehaviour
     {
         ChangeAnimation(ANIMATION_ATTACK);
         petrificando = true;
+        Emoji.SetActive(true);
         var AtaquePosition = transform.position;
 
         if (sr.flipX == true)
@@ -127,6 +137,7 @@ public class MedusaController : MonoBehaviour
         DispararRayo(jugador);
         yield return new WaitForSeconds(3);
         petrificando = false;
+        Emoji.SetActive(false);
         ChangeAnimation(ANIMATION_CORRER);
     }
 
